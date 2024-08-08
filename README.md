@@ -35,7 +35,14 @@ Após a execução dos testes, não foram encontrados alertas críticos, sendo a
   ![Resultados dos Testes](./RELATORIO_A1.jpg)
   
   - **Solução**: Com base na [documentação da AWS](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/example-function-add-security-headers.html), adicionamos um handler em nossas requsições onde adicionamos vários cabeçalhos HTTP comuns relacionados à Content Security Policy.
- 
+ ``` javascript
+    headers['strict-transport-security'] = { value: 'max-age=63072000; includeSubdomains; preload'}; 
+    headers['content-security-policy'] = { value: "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'; frame-ancestors 'none'"}; 
+    headers['x-content-type-options'] = { value: 'nosniff'}; 
+    headers['x-frame-options'] = {value: 'DENY'}; 
+    headers['x-xss-protection'] = {value: '1; mode=block'};
+    headers['referrer-policy'] = {value: 'same-origin'};
+ ```
 - **[Missing Anti-clickjacking Header]**:
   
   ![Resultados dos Testes](./RELATORIO_A2.jpg)
